@@ -1,0 +1,11 @@
+data/raw/
+data/processed/
+artifacts/
+*.json
+*.csv
+*.npy
+*.xls
+*.xlsx
+.env
+__pycache__/
+.DS_Store
