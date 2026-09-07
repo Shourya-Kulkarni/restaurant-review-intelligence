@@ -2,7 +2,7 @@
 
 **Turning 691 unstructured customer reviews into an operations brief a two-person restaurant can actually act on.**
 
-🔗 **[Live Demo](https://your-app-url.streamlit.app)** · Built for Spice Up Thai Eatery, Los Angeles
+🔗 **[Live Demo](https://restaurant-review-intelligence.streamlit.app/)** · Built for Spice Up Thai Eatery, Los Angeles
 
 ---
 
