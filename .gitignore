@@ -1,12 +1,20 @@
+# Raw API responses stay private
 data/raw/
-data/processed/
-artifacts/
+
+# Environment and caches
+.env
+__pycache__/
+.DS_Store
+.ipynb_checkpoints/
+
+# Data formats ignored by default
 *.json
 *.csv
 *.npy
 *.xls
 *.xlsx
-.env
-__pycache__/
-.DS_Store
-.env
+
+# Except the files the deployed app needs
+!data/processed/clustered_reviews.csv
+!data/processed/processed_reviews.csv
+!artifacts/cluster_centroids.npy

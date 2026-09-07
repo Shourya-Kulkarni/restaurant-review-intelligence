@@ -12,19 +12,16 @@ Customers consistently feel ignored or mistreated at the front counter. The revi
 ### 💡 The 2‑Person Reality  
 With only two people juggling front‑of‑house, cooking, phone calls, and cleaning, it’s natural that the counter becomes a bottleneck. The constant mental juggling leads to short‑sighted responses, phone distractions, and a feeling of being “overworked” rather than “efficient.” Burnout amplifies these moments, turning a simple greeting into a perceived rudeness.
 
-### 🛠️ Low‑Friction Solutions  
+### 🛠️ Low‑Friction Solutions
 
-1. **Front‑Counter Script + Phone‑Handoff System**  
-   *Create a one‑page script that covers greeting, order confirmation, extra‑condiment request, payment, and thank‑you.*  
-   *When the phone rings, jot the caller’s name and number on a sticky note or a small whiteboard and hand it to the other person. This keeps the order‑taker focused on the customer while still honoring the call.*
+1. **Digital Ordering Pivot**
+   * Actively push phone-in and walk-up customers to use a streamlined online checkout system or a QR-code table menu. This offloads order taking and payment processing from your plate so you do not have to break your active cooking or cleaning workflow.
 
-2. **Customer‑Service Checklist on the Counter**  
-   *Place a laminated checklist right on the counter: “Smile → Greet → Confirm Order → Ask if anything else → Confirm Payment → Thank.”*  
-   *Checking each box as you go turns politeness into a habit, reducing the chance of a slip‑up when you’re juggling tasks.*
+2. **Automated Voicemail Router**
+   * Set up a quick voicemail message for peak hours: *"We are currently serving guests on the line. To guarantee your order immediately, please place it at [Website URL] for a 15-minute pickup."* This keeps you focused on the physical customers in front of you without losing incoming revenue.
 
-3. **“Phone‑Free” Zone & Quick‑Access Phone Stand**  
-   *Put a small sign or a phone holder near the counter that says, “Please leave your phone here while you’re ordering.”*  
-   *The phone stays out of sight, but you can still retrieve it quickly when the call comes in. This simple visual cue keeps the focus on the customer and signals to the team that the phone is a secondary priority during peak moments.*
+3. **10-Second Visual Reset**
+   * Place a tiny, private sticky note by the POS tablet as a mental anchor: *“Deep breath ➜ Smile ➜ Greet.”* When multitasking stress peaks, this micro-cue forces a brief hospitality reset before you address the next customer.
 
 Implementing these three tweaks takes only a few minutes of setup and can dramatically improve the customer experience while keeping your workload manageable. You’re already doing so much—these small changes will help you shine even brighter.
 

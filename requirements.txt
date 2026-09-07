@@ -1,0 +1,13 @@
+streamlit
+pandas
+numpy
+plotly
+scikit-learn
+sentence-transformers
+umap-learn
+joblib
+python-dotenv
+groq
+requests
+langdetect
+xlrd
