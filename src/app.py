@@ -59,15 +59,15 @@ h1, h2, h3 {
 .stTabs [data-baseweb="tab-list"] {
     background: #F2EBEA;
     border-radius: 50px;
-    padding: 4px 5px;
-    gap: 2px;
+    padding: 4px 8px;
+    gap: 6px;
     border: none;
     width: fit-content;
     margin: 0 auto 1rem auto;
 }
 .stTabs [data-baseweb="tab"] {
     border-radius: 50px;
-    padding: 8px 20px;
+    padding: 8px 24px;
     color: #6B6B6B;
     font-weight: 500;
     font-size: 15px;
