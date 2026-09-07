@@ -26,9 +26,9 @@ C = {
     "divider": "#EDE8E3",
 }
 CLUSTER = {
-    0: {"name": "Staff & Service",      "color": "#C0392B", "emoji": "🔴"},
-    1: {"name": "Food Quality",         "color": "#7CB342", "emoji": "🟢"},
-    2: {"name": "Operations & Pricing", "color": "#E67E22", "emoji": "🟠"},
+    0: {"name": "Staff & Service",      "color": "#1A237E", "emoji": "🟦"},
+    1: {"name": "Food Quality",         "color": "#4A148C", "emoji": "🟣"},
+    2: {"name": "Operations & Pricing", "color": "#42A5F5", "emoji": "🔵"},
 }
 
 # ── Global CSS ─────────────────────────────────────────────────────────────────
@@ -528,18 +528,13 @@ with tab2:
     negative_df["short_text"] = negative_df["text"].apply(
         lambda t: (t[:120] + "…") if len(t) > 120 else t
     )
-    negative_df["star_label"] = negative_df["rating"].astype(int).astype(str) + " star"
-
-    # Darker versions of the bar chart's rating color scale (1–3 stars only in negatives)
-    RATING_COLORS = {"1 star": "#922B21", "2 star": "#BA4A00", "3 star": "#9A7D0A"}
 
     fig_umap = px.scatter(
         negative_df, x="umap_x", y="umap_y",
-        color="star_label",
-        color_discrete_map=RATING_COLORS,
-        category_orders={"star_label": ["1 star", "2 star", "3 star"]},
+        color="cluster_name",
+        color_discrete_map={CLUSTER[k]["name"]: CLUSTER[k]["color"] for k in CLUSTER},
         custom_data=["cluster_name", "Stars", "source", "short_text"],
-        labels={"star_label": "Rating"},
+        labels={"cluster_name": "Theme"},
         title="Semantic Map of 25 Negative Reviews",
     )
     fig_umap.update_traces(
