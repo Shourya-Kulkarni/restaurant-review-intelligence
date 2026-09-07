@@ -6,14 +6,20 @@ from sklearn.metrics import silhouette_score
 from sentence_transformers import SentenceTransformer
 import os
 
-#Since there were so many positive reviews (473 out of 564), I took an approach of only filtering and clustering negative reviews (91)
+#Since there were so many positive reviews (473 out of 564), I took an approach of only filtering and clustering negative reviews (91 total)
 #As a way to provide genuine actionable insights to my client
 #Chose k=3 because it cleanly splits complaints into three actionable pillars without over-fragmenting
 def cluster_negative_reviews(reviews_path, output_path, n_clusters=3):
     
     df = pd.read_csv(reviews_path)
 
-    negative_df = df[df['rating'] <= 3].reset_index(drop=True)
+    #The restaurant had moved locations, so I filtered the reviews for when they opened in their new location for relevancy
+    #There were only 25 negative reviews in their new location
+    df['date'] = pd.to_datetime(df['date'], utc=True)
+    cutoff_date = pd.to_datetime('2021-09-01', utc=True)
+    df_sepulveda = df[df['date'] >= cutoff_date].reset_index(drop=True)
+
+    negative_df = df_sepulveda[df_sepulveda['rating'] <= 3].reset_index(drop=True)
     positive_df = df[df['rating'] >= 4].reset_index(drop=True)
     
     model = SentenceTransformer('all-MiniLM-L6-v2')
