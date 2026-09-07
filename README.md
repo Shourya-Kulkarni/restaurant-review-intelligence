@@ -1,6 +1,6 @@
 # Restaurant Review Intelligence
 
-**Turning 691 unstructured customer reviews into an operations brief a two-person restaurant can actually act on.**
+**Turning 691 unstructured customer reviews into an operations brief a two-person restaurant can act on.**
 
 🔗 **[Live Demo](https://restaurant-review-intelligence.streamlit.app/)** · Built for Spice Up Thai Eatery, Los Angeles
 
@@ -18,15 +18,15 @@ This project reads them instead, groups them by what they're actually about, and
 
 ## How I Got Here
 
-I did not start with NLP. The path mattered as much as the result, so it's documented honestly.
+I actually did not start with NLP. I felt that the path to making this project mattered as much as the result, so it's documented honestly.
 
-**Attempt 1 — Sales forecasting.** My first plan was a time-series model on the restaurant's POS data to predict daily revenue. I pulled six months of sales, built the pipeline, and then talked to the owner. He already knew his patterns cold: Sunday is busiest, Monday is slowest, 6 PM is peak. A forecast would have told him what he'd known for years. Technically valid, commercially useless.
+**Attempt 1 — Sales forecasting.** My first plan was a time-series model on the restaurant's POS data to predict daily revenue. I pulled six months of sales, built the pipeline, and then talked to the owner. But the owner already knew his patterns cold: Sunday is busiest, Monday is slowest, 6 PM is peak. A forecast would have told him what he'd known for years. I felt that the project would be valid, but commercially useless.
 
-**Attempt 2 — A promotion experiment.** I pivoted to identifying the slowest weekday and running a flyer campaign to lift it, measuring the before-and-after. Better, because it had a measurable outcome — but the analysis underneath was a group-by and a mean. Not enough substance to stand as a data science project.
+**Attempt 2 — A promotion experiment.** I pivoted to identifying the slowest weekday and running a flyer campaign to lift it, measuring the before-and-after. I felt that this idea was better because it had a measurable outcome — but the analysis underneath was nothing more than a group-by and a mean. So I felt that this project didn't have enough technical substance to stand as a data science project.
 
-**Attempt 3 — Anomaly detection on revenue.** I considered rolling z-scores over daily sales to flag statistically unusual days. I dropped it after checking the sample size: 148 days across six months is far too thin for meaningful time-series decomposition, and I had no external variables to explain the anomalies I'd surface.
+**Attempt 3 — Anomaly detection on revenue.** I considered rolling z-scores over daily sales to flag statistically unusual days. I dropped it after checking the sample size: I felt that 148 days across six months is far too thin for meaningful time-series decomposition, and I had no external variables to explain the anomalies I'd surface.
 
-**Where I landed.** The insight was that the owner's blind spot wasn't his numbers — it was his text. He had 691 reviews he'd never analyzed, containing exactly the kind of qualitative signal that doesn't show up in a POS export. That's a real NLP problem with a real business consumer, and it's what this repository builds.
+**Where I landed.** I figured that the owner's blind spot wasn't his numbers — it was his text. He had 691 reviews he'd never analyzed, containing exactly the kind of qualitative signal that doesn't show up in a POS export. That's a real NLP problem with a real business consumer, and it's what this repository builds.
 
 ---
 
@@ -43,16 +43,16 @@ Pulled 291 Google Maps reviews and 400 Yelp reviews through the SerpApi REST API
 **2 · Preprocessing** — `src/preprocess.py`
 Unified two different response schemas into one table. Applied HTML unescaping, whitespace normalization, Google-translation-artifact stripping, deduplication, a five-word minimum, and language filtering via `langdetect`. 691 raw records → **564 analysis-ready reviews**.
 
-Deliberately *not* applied: lowercasing, emoji removal, stop-word removal, punctuation stripping. Transformer embeddings encode case, emphasis, and negation as signal — "the food was BAD" and "the food was bad" carry different weight, and removing "not" inverts meaning outright.
+This is what I deliberately *didn't* apply: lowercasing, emoji removal, stop-word removal, punctuation stripping. I found that Sentence Transformer embeddings now encode case, emphasis, and negation as signal — for example,  "the food was BAD" and "the food was bad" carry different weight, and removing "not" inverts meaning outright.
 
 **3 · Temporal filtering**
-The restaurant relocated in August 2021. Reviews of the previous location describe a different kitchen and a different room, so including them would poison the analysis. Filtering to post-September-2021 reduced 91 negative reviews to **25 that describe the current business**. Silhouette score improved from 0.3975 to 0.4492 as a direct result.
+The restaurant relocated in August 2021. Reviews of the previous location describe a different kitchen and a different room, so including them would poison the analysis. Filtering to post-September-2021 reduced 91 negative reviews to **25 that describe the current business**. The Silhouette score improved from 0.3975 to 0.4492 as a direct result.
 
 **4 · Embeddings** — `src/embedder.py`
 Encoded each review with `all-MiniLM-L6-v2` into a 384-dimensional vector capturing semantic meaning rather than keyword overlap.
 
 **5 · Clustering** — `src/cluster_model.py`
-UMAP reduces 384 → 5 dimensions to avoid the curse of dimensionality, then K-Means partitions the reviews. **k=3** was selected by sweeping k=2 through k=8 and maximizing silhouette score.
+UMAP reduces 384 → 5 dimensions to avoid the curse of dimensionality, then K-Means partitions the reviews. **k=3** was selected by sweeping k=2 through k=6 and maximizing silhouette score.
 
 **6 · Synthesis** — `src/summarizer.py`
 Each cluster's raw reviews are passed to Groq LLaMA-3 with a prompt constrained by one hard rule: *this is a two-person operation*. Any recommendation requiring extra staff, meaningful capital, or downtime is rejected.
@@ -63,7 +63,7 @@ Each cluster's raw reviews are passed to Groq LLaMA-3 with a prompt constrained 
 
 The first version clustered all 564 reviews. It produced five clusters of praise, and the complaints vanished entirely.
 
-K-Means assumes roughly balanced cluster sizes. With 473 positive and 91 negative reviews, the algorithm split the positive mass into sub-flavors of compliment and scattered the negatives as edge noise. Mathematically defensible; useless as a deliverable.
+K-Means assumes roughly balanced cluster sizes. With 473 positive and 91 negative reviews, the algorithm split the positive mass into sub-flavors of compliment and scattered the negatives as edge noise. This made the clusters mathematically defensible, but useless as a deliverable.
 
 Filtering to negative reviews *before* clustering was the fix. It reframes the question from "what do customers say" to "what is going wrong" — which is the only version the owner can act on.
 
@@ -77,7 +77,7 @@ Filtering to negative reviews *before* clustering was the fix. It reframes the q
 | 1 | 10 | **Kitchen Execution & Consistency** — undercooked vegetables, wrong noodle type, dry proteins |
 | 2 | 8 | **Pricing & Operational Logistics** — surprise upcharges, hours posted incorrectly |
 
-The interpretation matters as much as the grouping. In a two-person restaurant, "the cashier was on her phone" is rarely apathy — it's one person managing a delivery tablet, a register, and a wok simultaneously. Every recommendation in the brief is framed around reducing that load rather than correcting attitude.
+The interpretation and context matters as much as the grouping. In a two-person restaurant, "the cashier was on her phone" is rarely apathy — it's one person managing a delivery tablet, a register, and a wok simultaneously. Every recommendation in the brief is framed around reducing that load rather than correcting attitude.
 
 Sample recommendations: QR-code ordering to pull the owner off the register during peak, a pre-portioned prep station to stabilize kitchen consistency under ticket pressure, and one-tap Google Business hours updates to stop customers arriving at a closed door.
 
@@ -87,7 +87,7 @@ Full brief: [`outputs/business_strategic_brief.md`](outputs/business_strategic_b
 
 ## Validation
 
-Silhouette score measures geometry, not meaning. A tight cluster of semantically unrelated reviews still scores well. So I validated against human judgment.
+Silhouette score measures geometry, not meaning. A tight cluster of semantically unrelated reviews still scores well. So I validated the reviews against human judgment.
 
 I manually labeled all 25 reviews as Service / Food / Operations without looking at cluster assignments, then compared.
 
@@ -100,7 +100,7 @@ I manually labeled all 25 reviews as Service / Food / Operations without looking
 
 Weighted F1: **0.83**. Silhouette: **0.4492**.
 
-**Known limitation — Service/Operations overlap.** Four Service reviews were classified as Operations. Centroid analysis explains it: three of the eight Operations reviews contain staff-interaction language, pulling that centroid toward service-flavored embeddings.
+**Known limitation — Service/Operations overlap.** Four Service reviews were classified as Operations. Centroid analysis explains it: three of the eight Operations reviews contain staff-interaction language, pulling that centroid toward service-centered embeddings.
 
 The cause is behavioral rather than technical. Customers describe operational failures — surprise charges, wrong hours — in the vocabulary of bad service. Someone who drives twenty minutes to a restaurant that's closed despite its posted hours writes "terrible service," not "inaccurate business listing."
 
